@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { TextArea, Button, Form, Input } from 'semantic-ui-react';
+import { Segment, Form } from 'semantic-ui-react';
 import NetworkingHandler from '../networking/NetworkHandler';
 
 class LoginForm extends Component {
@@ -26,23 +26,25 @@ class LoginForm extends Component {
 
     username(event) {
         const username = event.target.value;
-        this.setState({username});
+        this.setState({ username });
     }
 
     password(event) {
         const password = event.target.value;
-        this.setState({password})
+        this.setState({ password })
     }
 
     render() {
         return (
-            <Form>
-                <Form.Group widths='equal'>
-                    <Form.Input required label='Username' placeholder='Username' onChange={this.username} />
-                    <Form.Input required type='password' label='Password' onChange={this.password} />
-                </Form.Group>
-                <Form.Button content='Log In' onClick={this.login} />
-            </Form>
+            <Segment  inverted color='grey' compact={true} size='huge'>
+                <Form>
+                    <Form.Group widths='equal' widths='equal' >
+                        <Form.Input required label='Username' placeholder='Username' onChange={this.username} />
+                        <Form.Input required type='password' label='Password' onChange={this.password} />
+                    </Form.Group>
+                    <Form.Button content='Log In' onClick={this.login} />
+                </Form>
+            </Segment>
         );
     }
 }

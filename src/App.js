@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm';
+import { Button } from 'semantic-ui-react';
 
 class App extends Component {
 
@@ -47,7 +48,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <LoginForm fetch={this.getStatus} />
+        <LoginForm/>
+        <Button content='Click Me' onClick={this.getStatus}/>
         <p>
           {this.handleStatus()}
         </p>
