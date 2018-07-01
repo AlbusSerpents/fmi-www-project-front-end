@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 import { Segment, Form } from 'semantic-ui-react';
 import NetworkingHandler from '../networking/NetworkHandler';
 
@@ -36,7 +35,7 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <Segment  inverted color='grey' compact={true} size='huge'>
+            <Segment inverted color='grey' compact={true} size='huge'>
                 <Form>
                     <Form.Group widths='equal' widths='equal' >
                         <Form.Input required label='Username' placeholder='Username' onChange={this.username} />

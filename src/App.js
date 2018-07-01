@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm';
+import NavBar from './components/NavBar'
 import { Button } from 'semantic-ui-react';
 
 class App extends Component {
@@ -47,12 +48,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <LoginForm/>
-        <Button content='Click Me' onClick={this.getStatus}/>
-        <p>
-          {this.handleStatus()}
-        </p>
+      <div>
+        <NavBar />
+        <div className="App">
+          <LoginForm />
+          <Button content='Click Me' onClick={this.getStatus} />
+          <p>
+            {this.handleStatus()}
+          </p>
+        </div>
       </div>
     );
   }
