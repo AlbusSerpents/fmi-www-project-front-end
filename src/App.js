@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
