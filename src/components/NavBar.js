@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../nav-bar.css'
-import { Link, Redirect } from 'react-router-dom'
+import '../styles/nav-bar.css'
+import { Redirect } from 'react-router-dom'
 
 class NavBar extends Component {
 

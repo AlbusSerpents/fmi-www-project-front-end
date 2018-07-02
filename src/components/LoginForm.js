@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Segment, Form } from 'semantic-ui-react';
+import '../styles/login-form.css'
 import NetworkingHandler from '../networking/NetworkHandler';
+import { Redirect } from 'react-router-dom'
 
 class LoginForm extends Component {
 
@@ -10,17 +11,32 @@ class LoginForm extends Component {
         this.login = this.login.bind(this);
         this.username = this.username.bind(this);
         this.password = this.password.bind(this);
+        this.isEmpty = this.isEmpty.bind(this);
+        this.authenticate = this.authenticate.bind(this);
+        this.state = {
+            username: null,
+            password: null,
+            user: null
+        }
+    }
+
+    isEmpty(field) {
+        return field == null || field === '';
     }
 
     login() {
+        if (this.isEmpty(this.state.username) || this.isEmpty(this.state.password)) {
+            return;
+        }
         const request = {
             'roleToken': 'a',
             'username': this.state.username,
             'password': this.state.password
         };
-        this.networking.login(request, function (response) {
-            console.log(response);
-        });
+        const result = this.networking.login(request, this.setUser);
+        if (result !== null) {
+            this.setState({ user: result });
+        }
     }
 
     username(event) {
@@ -33,17 +49,25 @@ class LoginForm extends Component {
         this.setState({ password })
     }
 
+    authenticate() {
+        if (this.state.user !== null) {
+            return <Redirect to={{
+                pathname: '/home',
+                redirect: { data: this.state.user }
+            }} />
+        }
+    }
+
     render() {
         return (
-            <Segment inverted color='grey' compact={true} size='huge'>
-                <Form>
-                    <Form.Group widths='equal' widths='equal' >
-                        <Form.Input required label='Username' placeholder='Username' onChange={this.username} />
-                        <Form.Input required type='password' label='Password' onChange={this.password} />
-                    </Form.Group>
-                    <Form.Button content='Log In' onClick={this.login} />
-                </Form>
-            </Segment>
+            <div className='login-form-container'>
+                {this.authenticate()}
+                <div className='login-form'>
+                    <input type='text' required placeholder='Username' onChange={this.username} />
+                    <input type='password' required placeholder='Password' onChange={this.password} />
+                    <button onClick={this.login} >Log In</button>
+                </div>
+            </div>
         );
     }
 }
