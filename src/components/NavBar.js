@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import '../nav-bar.css'
-import { Segment, Form } from 'semantic-ui-react';
-import NetworkingHandler from '../networking/NetworkHandler';
+import { Link, Redirect } from 'react-router-dom'
 
 class NavBar extends Component {
 
     constructor(props) {
         super(props);
         this.navBarElement = this.navBarElement.bind(this);
+        this.renderRedirect = this.renderRedirect.bind(this);
+        this.state = { redirect: null };
     }
 
-    navBarElement(text) {
+    renderRedirect() {
+        if (this.state.redirect != null) {
+            return <Redirect to={this.state.redirect} />
+        }
+    }
+
+    navBarElement(value, text) {
         return (
             <li className='nav-bar-element'>
-                <button className='nav-bar-button'>{text}</button>
+                <button className='nav-bar-button' onClick={() => this.setState({ redirect: value })}>
+                    {text}
+                </button>
             </li>
         );
     }
@@ -21,12 +30,13 @@ class NavBar extends Component {
     render() {
         return (
             <div className='nav-bar'>
+                {this.renderRedirect()}
                 <ul className='nav-bar-list'>
-                    {this.navBarElement('Home')}
-                    {this.navBarElement('Domains')}
-                    {this.navBarElement('Request Domain')}
-                    {this.navBarElement('Profile')}
-                    {this.navBarElement('Logout')}
+                    {this.navBarElement('/home', 'Home')}
+                    {this.navBarElement('/domains', 'Domains')}
+                    {this.navBarElement('/request', 'Request Domain')}
+                    {this.navBarElement('/profile', 'Profile')}
+                    {this.navBarElement('/logout', 'Logout')}
                 </ul>
             </div>
         );

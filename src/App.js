@@ -3,6 +3,7 @@ import './App.css';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar'
 import { Button } from 'semantic-ui-react';
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 class App extends Component {
 
@@ -48,16 +49,46 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <NavBar />
-        <div className="App">
-          <LoginForm />
-          <Button content='Click Me' onClick={this.getStatus} />
-          <p>
-            {this.handleStatus()}
-          </p>
+      <BrowserRouter>
+        <div>
+          <NavBar />
+          <div className="App">
+            <LoginForm />
+            <Button content='Click Me' onClick={this.getStatus} />
+            <p>
+              {this.handleStatus()}
+            </p>
+          </div>
+          <Route path='/' exact render={
+            () => { return (<h1>Hello world</h1>); }
+          } />
+          <Route path='/home' exact render={
+            () => { return (<h1>Home</h1>); }
+          } />
+
+          <Route path='/domains' exact render={
+            () => { return (<h1>Domains</h1>); }
+          } />
+
+          <Route path='/request' exact render={
+            () => { return (<h1>Request</h1>); }
+          } />
+
+          <Route path='/profile' exact render={
+            () => { return (<h1>Profile</h1>); }
+          } />
+
+          <Route path='/logout' exact render={
+            () => { return (<h1>Lougout</h1>); }
+          } />
+
+          <ul>
+            <li> <Link to='/home' >Home</Link></li>
+            <li> <Link to='/test'>Test</Link></li>
+          </ul>
+
         </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }
