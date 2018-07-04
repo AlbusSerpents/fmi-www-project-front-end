@@ -24,10 +24,18 @@ class NetworkingHandler {
             return null;
         }
 
+        const get = function (relativeUrl, method, headers) {
+            return fetch(`http://localhost:8080/${relativeUrl}`, { method, headers });
+        }
+
+        const otherMethods = function (relativeUrl, method, body, headers) {
+            return fetch(`http://localhost:8080/${relativeUrl}`, { method, headers, body });
+        }
+
         this.executeRequest = function (relativeUrl, method, body, headers) {
             body = JSON.stringify(body);
             headers['Content-Type'] = 'application/json';
-            return fetch(`http://localhost:8080/${relativeUrl}`, { method, headers, body })
+            return (method === this.methods.get() ? get(relativeUrl, method, headers) : otherMethods(relativeUrl, method, body, headers))
                 .then((response) => { return { status: response.status, body: response.json() } })
                 .then(({ status, body }) => { return status < 400 ? body : body.then(handleError) });
         }
