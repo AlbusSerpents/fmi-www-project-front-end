@@ -31,7 +31,7 @@ class LoginForm extends Component {
     isEmpty(field) {
         return field == null || field === '';
     }
-
+    
     login() {
         if (this.isEmpty(this.state.username) || this.isEmpty(this.state.password)) {
             return;
