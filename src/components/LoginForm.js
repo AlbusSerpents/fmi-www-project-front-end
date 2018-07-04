@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/login-form.css'
-import NetworkingHandler from '../networking/NetworkHandler';
+import LoginHandler from '../networking/LoginHandler';
 import { Redirect } from 'react-router-dom'
 import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from "react-cookie";
@@ -14,7 +14,7 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
 
-        this.networking = new NetworkingHandler();
+        this.handler = new LoginHandler();
         this.login = this.login.bind(this);
         this.username = this.username.bind(this);
         this.password = this.password.bind(this);
@@ -37,15 +37,16 @@ class LoginForm extends Component {
             return;
         }
         const request = {
-            'roleToken': 'a',
             'username': this.state.username,
             'password': this.state.password
         };
         const { cookies } = this.props;
 
-        this.networking.login(request, this.setUser).then(result => {
-            this.setState({ authenticated: true });
-            cookies.set('user', result, { path: '/' });
+        this.handler.login(request, this.setUser).then(result => {
+            if (result != null) {
+                this.setState({ authenticated: true });
+                cookies.set('user', result, { path: '/' });
+            }
         });
     }
 

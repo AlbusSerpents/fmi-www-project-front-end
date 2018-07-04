@@ -16,7 +16,11 @@ class NetworkingHandler {
     constructor() {
         this.methods = new HttpMethods();
         const handleError = function (exception) {
-            alert(exception.error);
+            if (exception.error) {
+                alert(exception.error);
+            } else {
+                alert('Unknown exception');
+            }
             return null;
         }
 
@@ -24,12 +28,9 @@ class NetworkingHandler {
             body = JSON.stringify(body);
             headers['Content-Type'] = 'application/json';
             return fetch(`http://localhost:8080/${relativeUrl}`, { method, headers, body })
-                .then(response => response.status < 400 ? response.json() : handleError(response));
+                .then((response) => { return { status: response.status, body: response.json() } })
+                .then(({ status, body }) => { return status < 400 ? body : body.then(handleError) });
         }
-    }
-
-    login(loginRequest) {
-        return this.executeRequest('auth', this.methods.post(), loginRequest, {});
     }
 }
 
