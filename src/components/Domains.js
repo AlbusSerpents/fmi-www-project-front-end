@@ -5,6 +5,9 @@ import { Redirect } from 'react-router-dom'
 import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from "react-cookie";
 
+import DomainSearch from './DomainSearch'
+import DomainInfoBuble from './DomainInfoBuble'
+
 import DomainsHandler from '../networking/DomainsHandler'
 
 class Domains extends Component {
@@ -19,9 +22,19 @@ class Domains extends Component {
         this.handleUser = this.handleUser.bind(this);
         this.myDomains = this.myDomains.bind(this);
 
-        this.handler = new DomainsHandler();
+        this.searchIp = this.searchIp.bind(this);
+        this.searchDomain = this.searchDomain.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
 
-        this.state = { user: null };
+        this.drawSearch = this.drawSearch.bind(this);
+
+        this.state = {
+            user: null,
+            authenticated: false,
+            searchResult: null,
+            hasResults: false,
+            searchTriggered: false
+        };
     }
 
     componentWillMount() {
@@ -29,13 +42,13 @@ class Domains extends Component {
         const userCookie = cookies.get('user');
         if (userCookie) {
             this.setState({ user: userCookie });
-        } else {
             this.setState({ authenticated: true });
+            this.handler = new DomainsHandler(userCookie.sessionId);
         }
     }
 
     handleUser() {
-        if (this.state.user != null) {
+        if (this.state.authenticated) {
             return <h2> Hello, {this.state.user.username} </h2>;
         } else {
             return <Redirect to='/' />
@@ -43,35 +56,53 @@ class Domains extends Component {
     }
 
     myDomains() {
-        if (this.state.user != null) {
-            const auth = this.state.user.sessionId;
-            const userId = this.state.user.id;
-            this.handler.getMyDomains(userId, auth)
-                .then(domains => console.log(domains));
+        const userId = this.state.user.id;
+        this.handler.getMyDomains(userId)
+            .then(domains => console.log(domains));
+    }
+
+    searchIp(ip) {
+        const promise = this.handler.searchDomain(ip, null)
+        this.handleSearch(promise);
+    }
+
+    searchDomain(domain) {
+        const promise = this.handler.searchDomain(null, domain)
+        this.handleSearch(promise);
+
+    }
+
+    handleSearch(promise) {
+        promise
+            .then(found =>
+                found != null ?
+                    this.setState({ searchResult: found, hasResults: true }) :
+                    this.setState({ hasResults: false }))
+            .then(found => {
+                this.setState({ searchTriggered: true })
+            });
+    }
+
+    drawSearch() {
+        if (this.state.searchTriggered) {
+            return <DomainInfoBuble result={this.state.searchResult} className='domain-search-result' hasResults={this.state.hasResults} />
+        } else {
+            return;
         }
     }
 
     render() {
         return (
             <div className='domains'>
+                {/* {this.handleUser()} */}
                 <NavBar />
                 <div className='content'>
-                    <div className='search-bar'>
-                        <input type='text' className='search-bar-text' />
-                        <div className='search-type'>
-                            <div className='search-bar-radio'>
-                                <input type='radio' name='type' value='Ip Addres' />Ip Address
-                            </div>
-                            <div className='search-bar-radio' >
-                                <input type='radio' name='type' value='Domain' />Domain
-                            </div>
-                        </div>
-                        <input type='button' value='Search' className='search-button' />
-                    </div>
-                    <div><hr /></div>
+                    <DomainSearch searchIp={this.searchIp} searchDomain={this.searchDomain} className='domains-search-bar' />
+                    {this.drawSearch()}
+                    {/* <div><hr /></div>
                     {this.myDomains()}
                     <div className='my-domains'>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

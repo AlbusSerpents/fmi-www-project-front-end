@@ -1,18 +1,5 @@
 class NetworkingHandler {
 
-    // var status = fetch('https://localhost:8080/status', {
-    //     method: 'GET',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         firstParam: 'yourValue',
-    //         secondParam: 'yourOtherValue',
-    //     })
-    // });
-
-
     constructor() {
         this.methods = new HttpMethods();
         const handleError = function (exception) {
@@ -36,8 +23,15 @@ class NetworkingHandler {
             body = JSON.stringify(body);
             headers['Content-Type'] = 'application/json';
             return (method === this.methods.get() ? get(relativeUrl, method, headers) : otherMethods(relativeUrl, method, body, headers))
-                .then((response) => { return { status: response.status, body: response.json() } })
-                .then(({ status, body }) => { return status < 400 ? body : body.then(handleError) });
+                .then((response) => {
+                    return { status: response.status, body: response.text().then(text => text ? JSON.parse(text) : null) };
+                }).then(({ status, body }) => {
+                    return status < 400 ? body : body.then(handleError)
+                }).catch(exception => {
+                    console.log(exception);
+                    alert('Unknown server exception');
+                    return null;
+                });
         }
     }
 }
