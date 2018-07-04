@@ -2,21 +2,29 @@ import React, { Component } from 'react';
 import '../styles/login-form.css'
 import NetworkingHandler from '../networking/NetworkHandler';
 import { Redirect } from 'react-router-dom'
+import { instanceOf } from 'prop-types';
+import { Cookies, withCookies } from "react-cookie";
 
 class LoginForm extends Component {
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props) {
         super(props);
+
         this.networking = new NetworkingHandler();
         this.login = this.login.bind(this);
         this.username = this.username.bind(this);
         this.password = this.password.bind(this);
         this.isEmpty = this.isEmpty.bind(this);
         this.authenticate = this.authenticate.bind(this);
+
         this.state = {
             username: null,
             password: null,
-            user: null
+            authenticated: false
         }
     }
 
@@ -33,10 +41,12 @@ class LoginForm extends Component {
             'username': this.state.username,
             'password': this.state.password
         };
-        const result = this.networking.login(request, this.setUser);
-        if (result !== null) {
-            this.setState({ user: result });
-        }
+        const { cookies } = this.props;
+
+        this.networking.login(request, this.setUser).then(result => {
+            this.setState({ authenticated: true });
+            cookies.set('user', result, { path: '/' });
+        });
     }
 
     username(event) {
@@ -50,11 +60,8 @@ class LoginForm extends Component {
     }
 
     authenticate() {
-        if (this.state.user !== null) {
-            return <Redirect to={{
-                pathname: '/home',
-                redirect: { data: this.state.user }
-            }} />
+        if (this.state.authenticated) {
+            return <Redirect to='/home' />
         }
     }
 
@@ -72,4 +79,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default withCookies(LoginForm);

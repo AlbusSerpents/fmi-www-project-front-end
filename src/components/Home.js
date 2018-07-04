@@ -2,30 +2,36 @@ import React, { Component } from 'react';
 import '../styles/home.css';
 import NavBar from './NavBar'
 import { Redirect } from 'react-router-dom'
+import { instanceOf } from 'prop-types';
+import { Cookies, withCookies } from "react-cookie";
 
 class Home extends Component {
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props) {
         super(props);
-
         this.handleUser = this.handleUser.bind(this);
 
         this.state = { user: null };
     }
 
-    componentDidMount() {
-        console.log(this.props);
-        if (this.props && this.props.user && this.props.user.location && this.props.user.location.redirect && this.props.user.location.redirect.data) {
-            this.props.user.location.redirect.data.then((user) => { this.setState({ user }) });
+    componentWillMount() {
+        const { cookies } = this.props;
+        const userCookie = cookies.get('user');
+        if (userCookie) {
+            this.setState({ user: userCookie });
         } else {
-            this.setState({ unauthenticated: true });
+            this.setState({ authenticated: true });
         }
     }
 
     handleUser() {
-        if (this.state.user) {
+        if (this.state.user != null) {
             return <h2> Hello, {this.state.user.username} </h2>;
-        } else if (this.state.unauthenticated) {
+        } else {
             return <Redirect to='/' />
         }
     }
@@ -42,4 +48,4 @@ class Home extends Component {
 
 }
 
-export default Home;
+export default withCookies(Home);
