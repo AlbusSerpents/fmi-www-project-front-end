@@ -6,9 +6,8 @@ import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from "react-cookie";
 
 import DomainSearch from './DomainSearch'
-import DomainInfoBuble from './DomainInfoBuble'
 
-import DomainsHandler from '../../networking/DomainsHandler'
+import MyDomains from './MyDomains'
 
 class Domains extends Component {
 
@@ -18,9 +17,6 @@ class Domains extends Component {
 
     constructor(props) {
         super(props);
-
-        this.handleMyDomains = this.handleMyDomains.bind(this);
-        this.drawMyDomains = this.drawMyDomains.bind(this);
 
         this.state = {
             user: null,
@@ -38,35 +34,13 @@ class Domains extends Component {
         if (userCookie) {
             this.setState({ user: userCookie });
             this.setState({ authenticated: true });
-            this.handler = new DomainsHandler(userCookie.sessionId);
         }
     }
-
-    handleMyDomains() {
-        const userId = this.state.user.id;
-        if (this.state.myDomains === null) {
-            this.handler.getMyDomains(userId)
-                .then(result => result === null ? [] : result)
-                .then(myDomains => this.setState({ myDomains: myDomains }))
-                .then(_ => this.drawMyDomains());
-        }
-    }
-
-    drawMyDomains() {
-        return (
-            <div>
-                {this.state.myDomains.map(domain =>
-                    <DomainInfoBuble result={domain} className='domain-search-result' hasResults={true} />
-                )}
-            </div>
-        );
-    }
-
 
     render() {
         return !this.state.authenticated ?
-            <Redirect to='/' />
-            : (
+            <Redirect to='/' /> :
+            (
                 <div className='domains'>
                     <NavBar />
                     <div className='content'>
@@ -76,11 +50,8 @@ class Domains extends Component {
                             <hr />
                         </div>
 
-                        Currently owned domains
-
-                    {this.handleMyDomains()}
-
                         <div className='my-domains'>
+                            <MyDomains sessionId={this.state.user.sessionId} userId={this.state.user.id} />
                         </div>
                     </div>
                 </div>
