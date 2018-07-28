@@ -34,10 +34,10 @@ class DomainSearch {
         if (text === null || text === '') {
             alert('Can not search for empty value');
             return false;
-        } else if (type == null) {
+        } else if (type === null) {
             alert('Choose a type of the input field')
             return false;
-        } else if (type != 'IP' && type != 'Domain') {
+        } else if (type !== 'IP' && type !== 'Domain') {
             alert('Internal Error');
             return false;
         } else {
