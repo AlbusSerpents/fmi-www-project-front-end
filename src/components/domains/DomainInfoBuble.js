@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/domains-info.css';
+import '../../styles/domains-info.css';
 
 class DomainInfoBuble extends Component {
 

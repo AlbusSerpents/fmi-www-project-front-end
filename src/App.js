@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home'
-import Domains from './components/Domains'
+import Domains from './components/domains/Domains'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie';
 

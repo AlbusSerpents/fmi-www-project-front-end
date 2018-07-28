@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../styles/domains.css';
-import NavBar from './NavBar'
+import '../../styles/domains.css';
+import NavBar from './../NavBar'
 import { Redirect } from 'react-router-dom'
 import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from "react-cookie";
@@ -8,7 +8,7 @@ import { Cookies, withCookies } from "react-cookie";
 import DomainSearch from './DomainSearch'
 import DomainInfoBuble from './DomainInfoBuble'
 
-import DomainsHandler from '../networking/DomainsHandler'
+import DomainsHandler from '../../networking/DomainsHandler'
 
 class Domains extends Component {
 
