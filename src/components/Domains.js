@@ -28,8 +28,6 @@ class Domains extends Component {
 
         this.drawSearch = this.drawSearch.bind(this);
 
-        this.clear = this.clear.bind(this);
-
         this.state = {
             user: null,
             authenticated: false,
@@ -90,17 +88,13 @@ class Domains extends Component {
         }
     }
 
-    clear() {
-        this.setState({ searchTriggered: false });
-    }
-
     render() {
         return (
             <div className='domains'>
                 {this.handleUser()}
                 <NavBar />
                 <div className='content'>
-                    <DomainSearch searchIp={this.searchIp} searchDomain={this.searchDomain} className='domains-search-bar' clearFunction={this.clear} />
+                    <DomainSearch searchIp={this.searchIp} searchDomain={this.searchDomain} className='domains-search-bar' clearFunction={() => this.setState({ searchTriggered: false })} />
                     {this.drawSearch()}
                     <div className='domains-splitting-line'>
                         <hr />

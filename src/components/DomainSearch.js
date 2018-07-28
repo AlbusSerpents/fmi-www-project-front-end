@@ -9,7 +9,8 @@ class DomainSearch extends Component {
 
         this.handleClear = this.handleClear.bind(this);
         this.searchRef = React.createRef();
-        this.typeRef = React.createRef();
+        this.domainRef = React.createRef();
+        this.ipRef = React.createRef();
 
         this.state = {
             search: null,
@@ -24,7 +25,8 @@ class DomainSearch extends Component {
         };
         this.setState(cleanState);
         this.searchRef.value = null;
-        this.typeRef.checked = false;
+        this.domainRef.checked = false;
+        this.ipRef.checked = false;
         this.props.clearFunction();
     }
 
@@ -52,10 +54,10 @@ class DomainSearch extends Component {
                 <input type='text' className='search-bar-text' onChange={(e) => this.setState({ search: e.target.value })} ref={el => this.searchRef = el} />
                 <div className='search-type'>
                     <div className='search-bar-radio'>
-                        <input type='radio' name='type' value='Ip Addres' onClick={(e) => this.setState({ type: 'IP' })} ref={el => this.typeRef = el} />IP Address
+                        <input type='radio' name='type' value='Ip Addres' onClick={(e) => this.setState({ type: 'IP' })} ref={el => this.domainRef = el} />IP Address
                             </div>
                     <div className='search-bar-radio' >
-                        <input type='radio' name='type' value='Domain' onClick={(e) => this.setState({ type: 'Domain' })} ref={el => this.typeRef = el} />Domain
+                        <input type='radio' name='type' value='Domain' onClick={(e) => this.setState({ type: 'Domain' })} ref={el => this.ipRef = el} />Domain
                             </div>
                 </div>
                 <div className='search-buttons'>
