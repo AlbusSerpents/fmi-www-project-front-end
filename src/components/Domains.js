@@ -28,6 +28,8 @@ class Domains extends Component {
 
         this.drawSearch = this.drawSearch.bind(this);
 
+        this.clear = this.clear.bind(this);
+
         this.state = {
             user: null,
             authenticated: false,
@@ -48,9 +50,7 @@ class Domains extends Component {
     }
 
     handleUser() {
-        if (this.state.authenticated) {
-            return <h2> Hello, {this.state.user.username} </h2>;
-        } else {
+        if (!this.state.authenticated) {
             return <Redirect to='/' />
         }
     }
@@ -74,12 +74,11 @@ class Domains extends Component {
 
     handleSearch(promise) {
         promise
-            .then(found =>
+            .then(found => {
+                this.setState({ searchTriggered: true });
                 found != null ?
                     this.setState({ searchResult: found, hasResults: true }) :
-                    this.setState({ hasResults: false }))
-            .then(found => {
-                this.setState({ searchTriggered: true })
+                    this.setState({ hasResults: false });
             });
     }
 
@@ -91,18 +90,25 @@ class Domains extends Component {
         }
     }
 
+    clear() {
+        this.setState({ searchTriggered: false });
+    }
+
     render() {
         return (
             <div className='domains'>
-                {/* {this.handleUser()} */}
+                {this.handleUser()}
                 <NavBar />
                 <div className='content'>
-                    <DomainSearch searchIp={this.searchIp} searchDomain={this.searchDomain} className='domains-search-bar' />
+                    <DomainSearch searchIp={this.searchIp} searchDomain={this.searchDomain} className='domains-search-bar' clearFunction={this.clear} />
                     {this.drawSearch()}
-                    {/* <div><hr /></div>
+                    <div className='domains-splitting-line'>
+                        <hr />
+                    </div>
+                    Currently owned domains
                     {this.myDomains()}
                     <div className='my-domains'>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         );
