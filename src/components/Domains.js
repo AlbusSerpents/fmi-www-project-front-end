@@ -19,21 +19,16 @@ class Domains extends Component {
     constructor(props) {
         super(props);
 
-        this.handleUser = this.handleUser.bind(this);
-        this.myDomains = this.myDomains.bind(this);
-
-        this.searchIp = this.searchIp.bind(this);
-        this.searchDomain = this.searchDomain.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
-
-        this.drawSearch = this.drawSearch.bind(this);
+        this.handleMyDomains = this.handleMyDomains.bind(this);
+        this.drawMyDomains = this.drawMyDomains.bind(this);
 
         this.state = {
             user: null,
             authenticated: false,
             searchResult: null,
             hasResults: false,
-            searchTriggered: false
+            displaySearch: false,
+            myDomains: null
         };
     }
 
@@ -47,65 +42,49 @@ class Domains extends Component {
         }
     }
 
-    handleUser() {
-        if (!this.state.authenticated) {
-            return <Redirect to='/' />
-        }
-    }
-
-    myDomains() {
+    handleMyDomains() {
         const userId = this.state.user.id;
-        this.handler.getMyDomains(userId)
-            .then(domains => console.log(domains));
-    }
-
-    searchIp(ip) {
-        const promise = this.handler.searchDomain(ip, null)
-        this.handleSearch(promise);
-    }
-
-    searchDomain(domain) {
-        const promise = this.handler.searchDomain(null, domain)
-        this.handleSearch(promise);
-
-    }
-
-    handleSearch(promise) {
-        promise
-            .then(found => {
-                this.setState({ searchTriggered: true });
-                found != null ?
-                    this.setState({ searchResult: found, hasResults: true }) :
-                    this.setState({ hasResults: false });
-            });
-    }
-
-    drawSearch() {
-        if (this.state.searchTriggered) {
-            return <DomainInfoBuble result={this.state.searchResult} className='domain-search-result' hasResults={this.state.hasResults} />
-        } else {
-            return;
+        if (this.state.myDomains === null) {
+            this.handler.getMyDomains(userId)
+                .then(result => result === null ? [] : result)
+                .then(myDomains => this.setState({ myDomains: myDomains }))
+                .then(_ => this.drawMyDomains());
         }
     }
 
-    render() {
+    drawMyDomains() {
         return (
-            <div className='domains'>
-                {this.handleUser()}
-                <NavBar />
-                <div className='content'>
-                    <DomainSearch searchIp={this.searchIp} searchDomain={this.searchDomain} className='domains-search-bar' clearFunction={() => this.setState({ searchTriggered: false })} />
-                    {this.drawSearch()}
-                    <div className='domains-splitting-line'>
-                        <hr />
-                    </div>
-                    Currently owned domains
-                    {this.myDomains()}
-                    <div className='my-domains'>
-                    </div>
-                </div>
+            <div>
+                {this.state.myDomains.map(domain =>
+                    <DomainInfoBuble result={domain} className='domain-search-result' hasResults={true} />
+                )}
             </div>
         );
+    }
+
+
+    render() {
+        return !this.state.authenticated ?
+            <Redirect to='/' />
+            : (
+                <div className='domains'>
+                    <NavBar />
+                    <div className='content'>
+                        <DomainSearch sessionId={this.state.user.sessionId} />
+
+                        <div className='domains-splitting-line'>
+                            <hr />
+                        </div>
+
+                        Currently owned domains
+
+                    {this.handleMyDomains()}
+
+                        <div className='my-domains'>
+                        </div>
+                    </div>
+                </div>
+            );
     }
 
 }

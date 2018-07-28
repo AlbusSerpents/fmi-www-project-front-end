@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/domains-info.css';
 
 class DomainInfoBuble extends Component {
 
@@ -6,29 +7,25 @@ class DomainInfoBuble extends Component {
         super(props);
 
         this.draw = this.drawResult.bind(this);
-        this.drawNothing = this.drawNothing.bind(this);
+        this.drawNothing = this.drawNoResults.bind(this);
     }
 
     drawResult() {
         return (
-            <div className={this.props.className}>
-                Domain: {this.props.result.name} <br />
-                IP V6 Address: {this.props.result.address}
+            <div className='domain-info-buble'>
+                Domain: {this.props.data.result.name} <br />
+                IP V6 Address: {this.props.data.result.address}
             </div>
         );
     }
 
-    drawNothing() {
-        return (
-            <div className={this.props.className}>
-                No Results found.
-            </div>
-        );
+    drawNoResults() {
+        return (<div className='domain-info-buble'>No Results found.</div>);
     }
 
     render() {
         return (
-            this.props.hasResults ? this.drawResult() : this.drawNothing()
+            this.props.data.hasResults ? this.drawResult() : this.drawNoResults()
         )
     }
 

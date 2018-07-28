@@ -1,38 +1,18 @@
 @import url('../index.css');
 
-.domain-search-result{
-    position: relative;
+.content {
+    background-color: #064106; 
+    position: absolute;
+    height: 80%;
     margin: auto;
-    width: 20%;
-    height: 5%;
-    top: 5%;
-    max-height: 80px;
-    min-height: 40px;
-    margin-top: 20px;
-    font-size: 1.3em;
-    padding: 10px;
-    border-radius: 5%;
-    text-align: center;
-    background-color: #d8be61;
-    box-sizing: content-box; 
-}
-
-.domains-search-bar {
-    position: relative;
-    margin: auto;
-    margin-bottom: 20px;
-    width: 60%;
-    height: 100px;
-    max-height: 120px;
-    top: 5%;
-    background-color: #d8be61;
-    border-radius: 2%;
-    box-sizing: content-box; 
+    width: 80%;
+    top: 20%;
+    left: 10%;
+    box-sizing: content-box;
 }
 
 .domains-splitting-line {
     top: 10%;
-    margin-top: 20px;
     position: relative;
     box-sizing: content-box;
 }
