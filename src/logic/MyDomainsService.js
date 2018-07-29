@@ -31,8 +31,6 @@ class MyDomainsDataSource {
     }
 
     transformResults(domains) {
-        console.log('fetch');
-        console.log(domains);
         return domains.map(domain => ({
             id: domain.id,
             domain: {
