@@ -44,17 +44,14 @@ class Domains extends Component {
                 <div className='domains'>
                     <NavBar />
                     <div className='content'>
-                        <DomainSearch sessionId={this.state.user.sessionId} />
-
-                        <div className='domains-splitting-line'>
-                            <hr />
+                        <div className='domains-search'>
+                            <DomainSearch sessionId={this.state.user.sessionId} />
                         </div>
-
                         <div className='my-domains'>
                             <MyDomains sessionId={this.state.user.sessionId} userId={this.state.user.id} />
                         </div>
                     </div>
-                </div>
+                </div >
             );
     }
 
