@@ -13,8 +13,8 @@ class DomainInfoBuble extends Component {
     drawResult() {
         return (
             <div className='domain-info-buble'>
-                Domain: {this.props.data.result.name} <br />
-                IP V6 Address: {this.props.data.result.address}
+                <u>Domain:</u> {this.props.data.result.name} <br />
+                <u>IP V6 Address:</u> {this.props.data.result.address}
             </div>
         );
     }
