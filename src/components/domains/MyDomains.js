@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import '../../styles/domains.css';
+import '../../styles/my-domains.css';
 
 import MyDomainInfoBuble from './MyDomainInfoBuble'
 
-import DomainsHandler from '../../networking/DomainsHandler'
 import MyDomainsService from '../../logic/MyDomainsService';
 
 class MyDomains extends Component {
@@ -11,10 +10,7 @@ class MyDomains extends Component {
     constructor(props) {
         super(props);
         this.service = new MyDomainsService(this.props.sessionId, this.props.userId);
-
         this.drawMyDomains = this.drawMyDomains.bind(this);
-
-        this.handler = new DomainsHandler(this.props.sessionId);
 
         this.state = {
             myDomains: null
@@ -25,29 +21,48 @@ class MyDomains extends Component {
         this.service
             .getMyDomains()
             .then(myDomains => this.setState({ myDomains: myDomains }));
-        console.log('On load');
-        console.log(this.state.myDomains);
     }
 
     drawMyDomains() {
-        console.log('Drawing');
-        console.log(this.state.myDomains);
-        console.log('AAA');
-        if (this.state.myDomains != null) {
-            console.log(this.state.myDomains);
-            var temp = this.state.myDomains.map((record) => < MyDomainInfoBuble key={record.id} data={record.domain} />)
-            console.log('Pesho');
-            console.log(temp);
-            return temp;
+        if (this.state.myDomains == null) {
+            return;
         }
+        var myDomainsElements = this.state.myDomains;
+
+        var createACell = function (index, elements) {
+            return <td className='my-domains-element'> {elements[index] != null ?
+                < MyDomainInfoBuble data={elements[index].domain} key={elements[index].id} />
+                : null}
+            </td>;
+        }
+
+        var rows = [];
+        for (var i = 0; i < myDomainsElements.length / 3; i++) {
+            rows.push(
+                <tr key={i}>
+                    {createACell(3 * i + 1, myDomainsElements)}
+                    {createACell(3 * i + 0, myDomainsElements)}
+                    {createACell(3 * i + 2, myDomainsElements)}
+                </tr>
+            );
+        }
+
+        return rows;
     }
 
     render() {
         return (
-            <div className='my-domains'>
-                Currently owned domains
-                {this.drawMyDomains()}
-            </div >
+            <div>
+                <div className='my-domains-title'>
+                    Currently owned domains
+                </div>
+                <table className='my-domains-results-table'>
+                    <tbody className='my-domains-table-body'>
+                        {this.drawMyDomains()}
+                    </tbody>
+                </table>
+
+            </div>
         );
     }
 

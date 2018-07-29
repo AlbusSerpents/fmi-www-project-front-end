@@ -1,0 +1,44 @@
+@import url("../index.css");
+
+.my-domains {
+    top: 10%;
+    position: relative;
+}
+
+.my-domains-results-table {
+    position: relative;
+    top: 20%;
+    width: 90%;
+    height: 80%;
+    margin: auto;
+    table-layout:fixed;
+}
+
+.my-domains-title {
+    position: relative;
+    bottom: 3%;
+    width: 40%;
+    border-radius: 3%;
+    background-color: #d8be61; 
+    
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 3%;
+    
+    text-align: center;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-decoration: underline;
+   
+    box-sizing: border-box;
+}
+
+.my-domains-table-body {
+    display: table-row-group;
+    vertical-align: middle;
+}
+
+.my-domains-element {
+    padding: 5px;
+}
