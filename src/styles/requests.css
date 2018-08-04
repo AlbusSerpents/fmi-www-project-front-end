@@ -1,0 +1,11 @@
+@import url("../index.css");
+
+.requests-form-position {
+    position: absolute;
+    height: 40%;
+    margin: auto;
+    width: 30%;
+    top: 30%;
+    left: 35%;
+    box-sizing: content-box;
+}

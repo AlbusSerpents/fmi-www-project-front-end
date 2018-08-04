@@ -1,0 +1,73 @@
+@import url("../index.css");
+
+.requests-form {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #064106;
+    margin: auto;
+    border-radius: 5px;
+    padding: 5% 0;
+    box-sizing: border-box;
+}
+
+.requests-domain-fields {
+    position: relative;
+    background-color: #d8be61;
+    width: 90%;
+    height: 60%;
+    margin: auto;
+    padding-left: 10px;
+    border-radius: 5px;
+    padding-top: 1px;
+    box-sizing: border-box;
+}
+.requests-domain-fields input {
+    position: relative;
+    height: 20%;
+    margin: 2px 0;
+    font-weight: normal;
+    left: 0;
+}
+
+.requests-domain-name-input {
+    text-align: right;
+    padding: 0;
+    width: 70%;
+}
+
+.requests-form-text {
+    height: 15%;
+    padding: 1% 0;
+    font-weight: bold;
+}
+
+.requests-domain-description {
+    text-align: left;
+    width: 90%;
+}
+
+.requests-submit-button {
+    background-color: #d8be61;
+    position: relative;
+    width: 60%;
+    top: 5%;
+    height: 30%;
+    margin: auto;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.requests-submit-button input {
+    left: 5%;
+    right: 5%;
+    top: 10%;
+    bottom: 10%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 90%;
+    height: 80%;
+    font-weight: bold;
+    box-sizing: border-box;
+}
