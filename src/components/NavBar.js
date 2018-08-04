@@ -19,10 +19,12 @@ class NavBar extends Component {
 
     navBarElement(value, text) {
         return (
-            <li className='nav-bar-element'>
-                <button className='nav-bar-button' onClick={() => this.setState({ redirect: value })}>
-                    {text}
-                </button>
+            <li className='nav-list-bar-element'>
+                <div className='nav-bar-element'>
+                    <button className='nav-bar-button' onClick={() => this.setState({ redirect: value })}>
+                        {text}
+                    </button>
+                </div>
             </li>
         );
     }
