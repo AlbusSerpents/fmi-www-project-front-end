@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/domains-search.css';
 
 import DomainInfoBuble from './DomainInfoBuble'
-import DomainSearchService from '../../logic/DomainSearchService'
+import DomainSearchService from '../../logic/domains/DomainSearchService'
 
 const initialState = {
     text: null,

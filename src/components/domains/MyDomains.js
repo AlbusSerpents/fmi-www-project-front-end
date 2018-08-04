@@ -3,7 +3,7 @@ import '../../styles/my-domains.css';
 
 import MyDomainInfoBuble from './MyDomainInfoBuble'
 
-import MyDomainsService from '../../logic/MyDomainsService';
+import MyDomainsService from '../../logic/domains/MyDomainsService';
 
 class MyDomains extends Component {
 

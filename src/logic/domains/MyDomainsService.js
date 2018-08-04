@@ -1,4 +1,4 @@
-import DomainsHandler from '../networking/DomainsHandler'
+import DomainsHandler from '../../networking/DomainsHandler'
 
 class MyDomainsService {
 
