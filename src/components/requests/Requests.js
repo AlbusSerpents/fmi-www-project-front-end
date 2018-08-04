@@ -38,7 +38,7 @@ class Requests extends Component {
                 <div className='requests'>
                     <NavBar />
                     <div className='requests-form-position'>
-                        <RequestsForm zoneName='.fmi.com'/>
+                        <RequestsForm zoneName='.fmi.com' sessionId={this.state.user.sessionId} />
                     </div>
                 </div >
             );
