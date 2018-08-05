@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import LoginForm from './components/LoginForm';
 import Domains from './components/domains/Domains'
 import Requests from './components/requests/Requests'
+import Profile from './components/profile/Profile'
 
 class App extends Component {
 
@@ -26,9 +27,7 @@ class App extends Component {
           <Route path='/' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
           <Route path='/domains' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
           <Route path='/request' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Requests user={this.getUser(props)} />} />
-          <Route path='/profile' exact render={
-            () => { return (<h1>Profie</h1>); }
-          } />
+          <Route path='/profile' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Profile user={this.getUser(props)} />} />
           <Route path='/logout' exact render={
             () => { return (<h1>Lougout</h1>); }
           } />
