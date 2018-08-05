@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../styles/login-form.css'
 import LoginHandler from '../networking/LoginHandler';
 import { Redirect } from 'react-router-dom'
-import { instanceOf } from 'prop-types';
 
 class LoginForm extends Component {
 

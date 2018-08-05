@@ -8,11 +8,6 @@ import RequestsForm from './RequestsForm'
 
 class Requests extends Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
     render() {
         return this.props.user === undefined ? <Redirect to='/' /> :
             (
