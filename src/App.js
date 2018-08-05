@@ -1,37 +1,38 @@
 import React, { Component } from 'react';
+
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+
 import LoginForm from './components/LoginForm';
 import Domains from './components/domains/Domains'
 import Requests from './components/requests/Requests'
-import { BrowserRouter, Route, Redirect } from 'react-router-dom'
-import { CookiesProvider } from 'react-cookie';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.handleBaseUrl = this.handleRoot.bind(this);
-    this.state = { user: this.props.user };
+
+    this.getUser = this.getUser.bind(this);
   }
 
-  handleRoot() {
-    return (this.state.user == null) ? <Redirect to='/login' /> : <Redirect to='/domains' />;
+  getUser(props) {
+    return props.location.state !== undefined && props.location.state !== null ? props.location.state.user : null;
   }
 
   render() {
     return (
       <BrowserRouter>
-        <CookiesProvider>
-          <Route path='/' exact render={() => this.handleRoot()} />
+        <div>
           <Route path='/login' exact render={() => <LoginForm />} />
-          <Route path='/domains' exact render={() => <Domains />} />
-          <Route path='/request' exact render={ () => <Requests/ >}/>
+          <Route path='/' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
+          <Route path='/domains' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
+          <Route path='/request' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Requests user={this.getUser(props)} />} />
           <Route path='/profile' exact render={
-            () => { return (<h1>Profile</h1>); }
+            () => { return (<h1>Profie</h1>); }
           } />
           <Route path='/logout' exact render={
             () => { return (<h1>Lougout</h1>); }
           } />
-        </CookiesProvider>
+        </div>
       </BrowserRouter>
     );
   }

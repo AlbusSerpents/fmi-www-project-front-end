@@ -7,13 +7,13 @@ class NavBar extends Component {
     constructor(props) {
         super(props);
         this.navBarElement = this.navBarElement.bind(this);
-        this.renderRedirect = this.renderRedirect.bind(this);
+        this.executeRedirect = this.executeRedirect.bind(this);
         this.state = { redirect: null };
     }
 
-    renderRedirect() {
+    executeRedirect() {
         if (this.state.redirect != null) {
-            return <Redirect to={this.state.redirect} />
+            return <Redirect to={{ pathname: this.state.redirect, state: { user: this.props.user } }} />
         }
     }
 
@@ -32,7 +32,7 @@ class NavBar extends Component {
     render() {
         return (
             <div className='nav-bar'>
-                {this.renderRedirect()}
+                {this.executeRedirect()}
                 <ul className='nav-bar-list'>
                     {this.navBarElement('/domains', 'Domains')}
                     {this.navBarElement('/request', 'Request Domain')}

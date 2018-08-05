@@ -3,35 +3,28 @@ import '../styles/login-form.css'
 import LoginHandler from '../networking/LoginHandler';
 import { Redirect } from 'react-router-dom'
 import { instanceOf } from 'prop-types';
-import { Cookies, withCookies } from "react-cookie";
 
 class LoginForm extends Component {
-
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    };
 
     constructor(props) {
         super(props);
 
         this.handler = new LoginHandler();
         this.login = this.login.bind(this);
-        this.username = this.username.bind(this);
-        this.password = this.password.bind(this);
         this.isEmpty = this.isEmpty.bind(this);
-        this.authenticate = this.authenticate.bind(this);
 
         this.state = {
             username: null,
             password: null,
-            authenticated: false
+            redirect: false,
+            user: null
         }
     }
 
     isEmpty(field) {
         return field == null || field === '';
     }
-    
+
     login() {
         if (this.isEmpty(this.state.username) || this.isEmpty(this.state.password)) {
             return;
@@ -40,44 +33,26 @@ class LoginForm extends Component {
             'username': this.state.username,
             'password': this.state.password
         };
-        const { cookies } = this.props;
-
-        this.handler.login(request, this.setUser).then(result => {
+        this.handler.login(request).then(result => {
             if (result != null) {
-                this.setState({ authenticated: true });
-                cookies.set('user', result, { path: '/' });
+                this.setState({redirect: true, user: result});
             }
         });
     }
 
-    username(event) {
-        const username = event.target.value;
-        this.setState({ username });
-    }
-
-    password(event) {
-        const password = event.target.value;
-        this.setState({ password })
-    }
-
-    authenticate() {
-        if (this.state.authenticated) {
-            return <Redirect to='/home' />
-        }
-    }
-
     render() {
-        return (
-            <div className='login-form-container'>
-                {this.authenticate()}
-                <div className='login-form'>
-                    <input type='text' required placeholder='Username' onChange={this.username} />
-                    <input type='password' required placeholder='Password' onChange={this.password} />
-                    <button onClick={this.login} >Log In</button>
+        return this.state.redirect ?
+            <Redirect to={{ pathname: '/', state: { user: this.state.user } }} /> :
+            (
+                <div className='login-form-container'>
+                    <div className='login-form'>
+                        <input type='text' required placeholder='Username' onChange={e => this.setState({ username: e.target.value })} />
+                        <input type='password' required placeholder='Password' onChange={e => this.setState({ password: e.target.value })} />
+                        <button onClick={this.login} >Log In</button>
+                    </div>
                 </div>
-            </div>
-        );
+            );
     }
 }
 
-export default withCookies(LoginForm);
+export default LoginForm;
