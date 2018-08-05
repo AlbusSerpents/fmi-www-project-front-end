@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import LoginForm from './components/LoginForm';
-import Home from './components/Home'
 import Domains from './components/domains/Domains'
 import Requests from './components/requests/Requests'
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
@@ -15,7 +14,7 @@ class App extends Component {
   }
 
   handleRoot() {
-    return (this.state.user == null) ? <Redirect to='/login' /> : <Redirect to='/home' />;
+    return (this.state.user == null) ? <Redirect to='/login' /> : <Redirect to='/domains' />;
   }
 
   render() {
@@ -24,7 +23,6 @@ class App extends Component {
         <CookiesProvider>
           <Route path='/' exact render={() => this.handleRoot()} />
           <Route path='/login' exact render={() => <LoginForm />} />
-          <Route path='/home' exact render={() => <Home />} />
           <Route path='/domains' exact render={() => <Domains />} />
           <Route path='/request' exact render={ () => <Requests/ >}/>
           <Route path='/profile' exact render={

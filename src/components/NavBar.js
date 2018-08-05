@@ -34,7 +34,6 @@ class NavBar extends Component {
             <div className='nav-bar'>
                 {this.renderRedirect()}
                 <ul className='nav-bar-list'>
-                    {this.navBarElement('/home', 'Home')}
                     {this.navBarElement('/domains', 'Domains')}
                     {this.navBarElement('/request', 'Request Domain')}
                     {this.navBarElement('/profile', 'Profile')}
