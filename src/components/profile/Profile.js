@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 
+import '../../styles/profile.css'
+
 import NavBar from './../NavBar'
 import ProfileView from './ProfileView'
 
@@ -19,7 +21,9 @@ class Profile extends Component {
         return this.props.user === undefined ? <Redirect to='/' /> : (
             <div className='profiles'>
                 <NavBar user={this.props.user} />
-                <ProfileView id={this.state.user.id} session={this.state.user.sessionId} />
+                <div className='profile-view-position'>
+                    <ProfileView id={this.state.user.id} session={this.state.user.sessionId} />
+                </div>
             </div >
         );
     }

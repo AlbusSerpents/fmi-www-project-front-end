@@ -66,17 +66,20 @@ class ProfileView extends Component {
             null :
             (
                 <div className='profile-view'>
-                    <div id='name'>Name: {this.state.name}</div>
-                    <div id='loginName'>Login name: {this.state.loginName}</div>
-                    <div id='faculty-number'>№: {this.state.facultyNumber}</div>
-
-                    <div id='email'>
-                        email: <input type='email' value={this.state.email ? this.state.email : ''} onChange={e => this.setState({ newEmail: e.target.value, email: e.target.value })} />
+                    <div className='view-part'>
+                        <div className='title'> Profile Info: </div>
+                        <ProfileField name='Name' value={this.state.name} />
+                        <ProfileField name='Login Name' value={this.state.loginName} />
+                        <ProfileField name='№' value={this.state.facultyNumber} />
                     </div>
-                    <div className='passwords'>
-                        <div id='passwords-title'>Change Password <br /></div>
-                        Old Password: <input type='password' onChange={e => this.setState({ oldPassword: e.target.value })} />
-                        New Password: <input type='password' onChange={e => this.setState({ newPassword: e.target.value })} />
+                    <div className='view-part'>
+                        <div className='title'>Email:</div> 
+                        <input type='email' value={this.state.email ? this.state.email : ''} onChange={e => this.setState({ newEmail: e.target.value, email: e.target.value })} />
+                    </div>
+                    <div className='view-part'>
+                        <div className='title'>Change Password <br /></div>
+                        Old Password: <input type='password' onChange={e => this.setState({ oldPassword: e.target.value })} /><br/>
+                        New Password: <input type='password' onChange={e => this.setState({ newPassword: e.target.value })} /><br/>
                     </div>
 
                     <div className='profile-submit-button'>
@@ -87,6 +90,18 @@ class ProfileView extends Component {
             );
     }
 
+}
+
+class ProfileField extends Component {
+    render() {
+        return (
+            <div>
+                <div className='profile-field-name'>{this.props.name}:</div>
+                <div className='profile-field-value'>{this.props.value}</div>
+                <br />
+            </div>
+        );
+    }
 }
 
 export default ProfileView;
