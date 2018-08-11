@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import '../styles/login-form.css'
-import LoginHandler from '../networking/LoginHandler';
 import { Redirect } from 'react-router-dom'
+
+import SessionHandler from '../networking/SessionHandler';
 
 class LoginForm extends Component {
 
     constructor(props) {
         super(props);
 
-        this.handler = new LoginHandler();
+        this.handler = new SessionHandler();
         this.login = this.login.bind(this);
         this.isEmpty = this.isEmpty.bind(this);
 
