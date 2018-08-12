@@ -10,7 +10,9 @@ class ProfileView extends Component {
 
         this.handleUpdate = this.handleUpdate.bind(this);
         this.getProfile = this.getProfile.bind(this);
-        this.refresh = this.refresh.bind(this);
+
+        this.oldPass = React.createRef();
+        this.newPass = React.createRef();
 
         this.state = {
             name: null,
@@ -21,7 +23,6 @@ class ProfileView extends Component {
             newEmail: null,
             oldPassword: null,
             newPassword: null,
-            refresh: false
         }
     }
 
@@ -37,9 +38,17 @@ class ProfileView extends Component {
                 loginName: result.loginName,
                 facultyNumber: result.facultyNumber,
                 email: result.email,
-                ready: result.success
-            }));
-
+                ready: result.success,
+                oldPassword: null,
+                newPassword: null
+            }))
+            .catch(error => alert(error.message));
+            if(this.oldPass.value !== undefined){
+                this.oldPass.value = null;
+            }
+            if(this.newPass.value !== undefined){
+                this.newPass.value = null;
+            }
     }
 
     handleUpdate() {
@@ -49,16 +58,13 @@ class ProfileView extends Component {
             oldPassword: this.state.oldPassword,
             newPassword: this.state.newPassword,
         }
-        this.service.updateClient(update);
-        alert('Update successfull');
-        this.setState({ refresh: true, oldPassword: null, newPassword: null });
-    }
+        this.service
+            .updateClient(update)
+            .then(result => alert(result))
+            .then(() => this.getProfile())
+            .catch(error => alert(error.message));
 
-    refresh() {
-        if (this.state.refresh) {
-            this.getProfile();
-            this.setState({ refresh: false });
-        }
+        this.setState({ refresh: true, oldPassword: null, newPassword: null });
     }
 
     render() {
@@ -73,18 +79,17 @@ class ProfileView extends Component {
                         <ProfileField name='№' value={this.state.facultyNumber} />
                     </div>
                     <div className='view-part'>
-                        <div className='title'>Email:</div> 
+                        <div className='title'>Email:</div>
                         <input type='email' value={this.state.email ? this.state.email : ''} onChange={e => this.setState({ newEmail: e.target.value, email: e.target.value })} />
                     </div>
                     <div className='view-part'>
                         <div className='title'>Change Password <br /></div>
-                        Old Password: <input type='password' onChange={e => this.setState({ oldPassword: e.target.value })} /><br/>
-                        New Password: <input type='password' onChange={e => this.setState({ newPassword: e.target.value })} /><br/>
+                        Old Password: <input type='password' onChange={e => this.setState({ oldPassword: e.target.value })} ref={el => this.oldPass = el} /><br />
+                        New Password: <input type='password' onChange={e => this.setState({ newPassword: e.target.value })} ref={el => this.newPass = el} /><br />
                     </div>
 
                     <div className='profile-submit-button'>
                         <input type='button' value='Update profile' onClick={e => this.handleUpdate()} />
-                        {this.refresh()}
                     </div>
                 </div >
             );

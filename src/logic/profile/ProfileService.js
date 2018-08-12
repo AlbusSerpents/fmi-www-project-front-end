@@ -28,19 +28,8 @@ class ProfileService {
         }
 
         this.updateClient = function (update) {
-            var passwords;
-            if (update.newPassword !== update.oldPassword) {
-                return Promise.resolve({ message: 'Both passwords should match', refresh: false });
-            } else if (update.newPassword === null && update.oldPassword === null) {
-                passwords = null;
-            } else {
-                passwords = {
-                    originalPassword: update.oldPassword,
-                    newPassword: update.newPassword
-                };
-            }
-
-            const email = update.newEmail === null ? update.oldEmail : update.newEmail;
+            const passwords = getPasswords(update);
+            const email = getEmail(update);
 
             const request = {
                 email: email,
@@ -48,7 +37,25 @@ class ProfileService {
                 passwordRequest: passwords
             };
 
-            return handler.updateProfile(request);
+            return Promise
+                .resolve(request)
+                .then(request => handler.updateProfile(request))
+                .then(() => 'Update successfull');
+        }
+
+        const getEmail = function (update) {
+            return update.newEmail === null ? update.oldEmail : update.newEmail;
+        }
+
+        const getPasswords = function (update) {
+            if (update.newPassword === null && update.oldPassword === null) {
+                return null;
+            } else {
+                return {
+                    originalPassword: update.oldPassword,
+                    newPassword: update.newPassword
+                };
+            }
         }
     }
 
