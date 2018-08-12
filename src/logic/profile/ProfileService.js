@@ -4,9 +4,6 @@ class ProfileService {
 
     constructor(userId, sessionId) {
         const clientRole = 'c';
-
-        console.log(sessionId);
-
         const handler = new ProfileHandler(userId, sessionId);
 
         this.getClient = function () {

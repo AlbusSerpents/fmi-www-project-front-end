@@ -23,7 +23,8 @@ class RequestsForm extends Component {
         const description = this.state.description;
         this.service
             .submitRequest(name, description)
-            .then(result => alert(result));
+            .then(result => alert(result))
+            .catch(error => alert(error.message));
     }
 
     handleNameValue() {
@@ -40,7 +41,7 @@ class RequestsForm extends Component {
                     <input type='text' className='requests-domain-description' onChange={e => this.setState({ description: e.target.value })} /><br />
                 </div>
                 <div className='requests-submit-button'>
-                    <input type='button' value='Submit' onClick={e => {console.log(e); this.handleSubmit()}} />
+                    <input type='button' value='Submit' onClick={e => this.handleSubmit()} />
                 </div>
             </div>
         );

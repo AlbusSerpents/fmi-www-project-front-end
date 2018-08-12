@@ -3,7 +3,6 @@ import NetworkingHandler from './NetworkHandler';
 class SessionHandler extends NetworkingHandler {
 
     register(regiserRequest) {
-        console.log(regiserRequest);
         return this.executeRequest('client', this.methods.post(), regiserRequest, {});
     }
 
