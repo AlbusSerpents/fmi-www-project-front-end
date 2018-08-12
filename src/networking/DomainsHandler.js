@@ -24,12 +24,7 @@ class DomainsHandler extends NetworkingHandler {
                 url += `name=${domain}`;
             }
 
-            return this.executeRequest(
-                url,
-                this.methods.get(),
-                null,
-                authHeader
-            );
+            return this.executeRequest(url, this.methods.get(), null, authHeader);
         }
     }
 }

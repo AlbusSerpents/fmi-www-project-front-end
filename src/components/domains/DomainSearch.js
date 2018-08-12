@@ -8,7 +8,7 @@ const initialState = {
     text: null,
     type: null,
     searchResult: null,
-    displaySearch: false
+    hasResult : false
 };
 
 class DomainSearch extends Component {
@@ -37,17 +37,14 @@ class DomainSearch extends Component {
     }
 
     handleSearch() {
-        const promise = this.service.searchDomains({ text: this.state.text, type: this.state.type });
-        if (promise != null) {
-            promise.then(found => {
-                this.setState({ searchResult: found });
-                this.setState({ displaySearch: true });
-            });
-        }
+        this.service
+            .searchDomains({ text: this.state.text, type: this.state.type })
+            .then(found => this.setState({ searchResult: found, hasResult: true }))
+            .catch(error => alert(error.message));
     }
 
     drawResult() {
-        if (this.state.displaySearch)
+        if (this.state.hasResult)
             return <DomainInfoBuble data={this.state.searchResult} />
     }
 
