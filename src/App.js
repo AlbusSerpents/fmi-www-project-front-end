@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 
-import LoginForm from './components/LoginForm';
+import Home from './components/home/Home';
 import Domains from './components/domains/Domains'
 import Requests from './components/requests/Requests'
 import Profile from './components/profile/Profile'
@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path='/login' exact render={() => <LoginForm />} />
+          <Route path='/login' exact render={() => <Home />} />
           <Route path='/' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
           <Route path='/domains' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
           <Route path='/request' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Requests user={this.getUser(props)} />} />

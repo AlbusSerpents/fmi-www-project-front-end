@@ -1,22 +1,23 @@
 class NetworkingHandler {
 
     constructor() {
+        const baseUrl = 'http://localhost:8080/';
+
         this.methods = new HttpMethods();
         const handleError = function (exception) {
             if (exception.error) {
-                alert(exception.error);
+                throw new Error(exception.error);
             } else {
-                alert('Unknown exception');
+                throw new Error('Unknown exception');
             }
-            return null;
         }
 
         const get = function (relativeUrl, method, headers) {
-            return fetch(`http://localhost:8080/${relativeUrl}`, { method, headers });
+            return fetch(`${baseUrl}${relativeUrl}`, { method, headers });
         }
 
         const otherMethods = function (relativeUrl, method, body, headers) {
-            return fetch(`http://localhost:8080/${relativeUrl}`, { method, headers, body });
+            return fetch(`${baseUrl}${relativeUrl}`, { method, headers, body });
         }
 
         this.executeRequest = function (relativeUrl, method, body, headers) {
@@ -24,13 +25,12 @@ class NetworkingHandler {
             headers['Content-Type'] = 'application/json';
             return (method === this.methods.get() ? get(relativeUrl, method, headers) : otherMethods(relativeUrl, method, body, headers))
                 .then((response) => {
-                    return { status: response.status, body: response.text().then(text => text ? JSON.parse(text) : null) };
+                    return {
+                        status: response.status,
+                        body: response.text().then(text => text ? JSON.parse(text) : null)
+                    };
                 }).then(({ status, body }) => {
                     return status < 400 ? body : body.then(handleError)
-                }).catch(exception => {
-                    console.log(exception);
-                    alert('Unknown server exception');
-                    return null;
                 });
         }
     }
@@ -42,7 +42,6 @@ class HttpMethods {
         this.get = function () { return "GET" };
         this.put = function () { return "PUT" };
         this.delete = function () { return "DELETE" };
-
     }
 }
 

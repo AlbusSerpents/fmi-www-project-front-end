@@ -1,6 +1,11 @@
-import NetworkingHandler from "./NetworkHandler";
+import NetworkingHandler from './NetworkHandler';
 
 class SessionHandler extends NetworkingHandler {
+
+    register(regiserRequest) {
+        console.log(regiserRequest);
+        return this.executeRequest('client', this.methods.post(), regiserRequest, {});
+    }
 
     login(loginRequest) {
         loginRequest['roleToken'] = 'c';
@@ -11,7 +16,6 @@ class SessionHandler extends NetworkingHandler {
         const authHeader = { 'X-Auth-Token': sessionId };
         return this.executeRequest('auth', this.methods.delete(), {}, authHeader);
     }
-
 }
 
 export default SessionHandler;
