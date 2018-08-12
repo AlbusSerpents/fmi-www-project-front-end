@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/domains-search.css';
 
 import DomainInfoBuble from './DomainInfoBuble'
-import DomainSearchService from '../../logic/domains/DomainSearchService'
+import DomainsService from '../../logic/domains/DomainsService';
 
 const initialState = {
     text: null,
@@ -15,7 +15,7 @@ class DomainSearch extends Component {
 
     constructor(props) {
         super(props);
-        this.service = new DomainSearchService(this.props.sessionId);
+        this.service = new DomainsService(this.props.sessionId);
 
         this.handleSearch = this.handleSearch.bind(this);
         this.handleClear = this.handleClear.bind(this);

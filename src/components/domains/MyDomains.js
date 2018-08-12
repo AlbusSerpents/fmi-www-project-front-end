@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import '../../styles/my-domains.css';
 
 import MyDomainInfoBuble from './MyDomainInfoBuble'
-
-import MyDomainsService from '../../logic/domains/MyDomainsService';
+import DomainsService from '../../logic/domains/DomainsService';
 
 class MyDomains extends Component {
 
     constructor(props) {
         super(props);
-        this.service = new MyDomainsService(this.props.sessionId, this.props.userId);
+        this.service = new DomainsService(this.props.sessionId);
         this.drawMyDomains = this.drawMyDomains.bind(this);
 
         this.state = {
@@ -18,13 +17,13 @@ class MyDomains extends Component {
     }
 
     componentWillMount() {
-        this.service
-            .getMyDomains()
-            .then(myDomains => this.setState({ myDomains: myDomains }));
+        this.service.getMyDomains(this.props.userId)
+            .then(myDomains => this.setState({ myDomains: myDomains }))
+            .catch(error => alert(error.message));
     }
 
     drawMyDomains() {
-        if (this.state.myDomains == null) {
+        if (this.state.myDomains === null) {
             return;
         }
         var myDomainsElements = this.state.myDomains;

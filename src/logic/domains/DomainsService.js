@@ -1,9 +1,17 @@
 import DomainsHandler from '../../networking/DomainsHandler'
 
-class DomainSearchService {
+class DomainsService {
 
     constructor(sessionId) {
         const handler = new DomainsHandler(sessionId);
+
+        this.searchDomains = function (search) {
+            return Promise
+                .resolve(search)
+                .then(search => validate(search))
+                .then(params => createQuery(params))
+                .then(query => handler.searchDomain(query.ip, query.domain));
+        }
 
         const validate = function (params) {
             if (params.text === null || params.text === '') {
@@ -28,15 +36,26 @@ class DomainSearchService {
             }
         }
 
-        this.searchDomains = function (search) {
-            return Promise
-                .resolve(search)
-                .then(search => validate(search))
-                .then(params => createQuery(params))
-                .then(query => handler.searchDomain(query.ip, query.domain));
+        this.getMyDomains = function (userId) {
+            return handler
+                .getMyDomains(userId)
+                .then(result => result === null ? [] : result)
+                .then(myDomains => transformMyDomains(myDomains));
         }
+
+        const transformMyDomains = function (domains) {
+            return domains.map(domain => ({
+                id: domain.id,
+                domain: {
+                    name: domain.domainDetails.domainName,
+                    description: domain.domainDetails.description,
+                    address: domain.address.address
+                }
+            }));
+        }
+
     }
 
 }
 
-export default DomainSearchService;
+export default DomainsService;
