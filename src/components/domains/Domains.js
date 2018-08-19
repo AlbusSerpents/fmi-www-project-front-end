@@ -4,22 +4,10 @@ import { Redirect } from 'react-router-dom'
 import '../../styles/domains.css';
 
 import NavBar from './../NavBar'
-import DomainSearch from './DomainSearch'
+import DomainSearch from '../common/DomainSearch'
 import MyDomains from './MyDomains'
 
 class Domains extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            user: this.props.user,
-            searchResult: null,
-            hasResults: false,
-            displaySearch: false,
-            myDomains: null
-        };
-    }
 
     render() {
         return this.props.user === undefined ? <Redirect to='/' /> : (
@@ -27,10 +15,10 @@ class Domains extends Component {
                 <NavBar user={this.props.user} />
                 <div className='content'>
                     <div className='domains-search'>
-                        <DomainSearch sessionId={this.state.user.sessionId} />
+                        <DomainSearch sessionId={this.props.user.sessionId} />
                     </div>
                     <div className='my-domains'>
-                        <MyDomains sessionId={this.state.user.sessionId} userId={this.state.user.id} />
+                        <MyDomains sessionId={this.props.user.sessionId} userId={this.props.user.id} />
                     </div>
                 </div>
             </div >
