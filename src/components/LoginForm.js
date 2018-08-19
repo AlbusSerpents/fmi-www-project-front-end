@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../../styles/home.css'
+import '../styles/login.css'
 
-import AuthenticationService from '../../logic/auth/AuthenticationService';
+import AuthenticationService from '../logic/auth/AuthenticationService';
 
 class LoginForm extends Component {
 
@@ -15,10 +15,10 @@ class LoginForm extends Component {
             password: null,
         };
     }
-
+    
     login() {
         this.service
-            .login(this.state.username, this.state.password)
+            .login(this.state.username, this.state.password, this.props.role)
             .then(result => this.props.onSuccess(result))
             .catch(error => alert(error.message));
     }

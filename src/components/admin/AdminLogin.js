@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import '../../styles/home.css'
+import '../../styles/admin-home.css'
 import { Redirect } from 'react-router-dom'
 
 import LoginForm from '../LoginForm';
-import RegistrationForm from './RegistrationForm';
 
-class Home extends Component {
+class AdminLogin extends Component {
 
     constructor(props) {
         super(props);
@@ -26,14 +25,9 @@ class Home extends Component {
             <Redirect to={{ pathname: '/', state: { user: this.state.user } }} /> :
             (
                 <div>
-                    <div id='home-page'>
+                    <div id='admin-home'>
                         <div className='form-container'>
-                            <LoginForm onSuccess={this.authenticated} role='c'/>
-                        </div>
-                        <div id='horizonal-split'></div>
-                        <div className='form-container'>
-
-                            <RegistrationForm onSuccess={this.authenticated} />
+                            <LoginForm onSuccess={this.authenticated} role='a' />
                         </div>
                     </div>
                 </div>
@@ -41,4 +35,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default AdminLogin;

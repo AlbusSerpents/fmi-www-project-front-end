@@ -1,0 +1,15 @@
+#login {
+    top: 15%;
+    bottom: 15%;
+    box-sizing: content-box;
+}
+
+#login input {
+    height: 15%;
+}
+
+#login button {
+    position: relative;
+    top: 10%;
+    height: 20%;
+}

@@ -8,9 +8,9 @@ class AuthenticationService {
             return field === null || field === '';
         }
 
-        this.login = function (username, password) {
+        this.login = function (username, password, roleToken) {
             return Promise
-                .resolve({ username, password })
+                .resolve({ username, password, roleToken })
                 .then(request => validateLogin(request))
                 .then(request => handler.login(request));
         }
@@ -20,6 +20,8 @@ class AuthenticationService {
                 throw new Error('Username is required');
             } else if (isEmpty(request.password)) {
                 throw new Error('Password is required');
+            } else if (request.roleToken !== 'a' && request.roleToken !== 'c') {
+                throw new Error('Invalid request');
             } else {
                 return request;
             }

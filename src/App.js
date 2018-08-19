@@ -6,6 +6,7 @@ import Home from './components/home/Home';
 import Domains from './components/domains/Domains'
 import Requests from './components/requests/Requests'
 import Profile from './components/profile/Profile'
+import AdminLogin from './components/admin/AdminLogin'
 
 class App extends Component {
 
@@ -23,6 +24,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
+          <Route path='/admin' exact render={() => <AdminLogin />} />
           <Route path='/login' exact render={() => <Home />} />
           <Route path='/' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
           <Route path='/domains' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
