@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/admin-home.css'
 import { Redirect } from 'react-router-dom'
 
-import LoginForm from '../LoginForm';
+import LoginForm from '../common/LoginForm';
 
 class AdminLogin extends Component {
 
@@ -22,7 +22,7 @@ class AdminLogin extends Component {
 
     render() {
         return this.state.user !== null ?
-            <Redirect to={{ pathname: '/', state: { user: this.state.user } }} /> :
+            <Redirect to={{ pathname: '/admin/home', state: { user: this.state.user } }} /> :
             (
                 <div>
                     <div id='admin-home'>

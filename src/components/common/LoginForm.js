@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/login.css'
+import '../../styles/login.css'
 
-import AuthenticationService from '../logic/auth/AuthenticationService';
+import AuthenticationService from '../../logic/auth/AuthenticationService';
 
 class LoginForm extends Component {
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/home.css'
 import { Redirect } from 'react-router-dom'
 
-import LoginForm from '../LoginForm';
+import LoginForm from '../common/LoginForm';
 import RegistrationForm from './RegistrationForm';
 
 class Home extends Component {
