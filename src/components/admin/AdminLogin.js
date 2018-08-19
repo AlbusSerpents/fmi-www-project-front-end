@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../styles/admin-home.css'
+import '../../styles/admin-login.css'
 import { Redirect } from 'react-router-dom'
 
 import LoginForm from '../common/LoginForm';
@@ -25,7 +25,7 @@ class AdminLogin extends Component {
             <Redirect to={{ pathname: '/admin/home', state: { admin: this.state.admin } }} /> :
             (
                 <div>
-                    <div id='admin-home'>
+                    <div id='admin-login'>
                         <div className='admin-form-container'>
                             <LoginForm onSuccess={this.authenticated} roleToken='a' />
                         </div>

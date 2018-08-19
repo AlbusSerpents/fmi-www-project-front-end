@@ -45,11 +45,11 @@ class RequestsService {
         }
 
         this.approve = function (requestId) {
-            return this.handler.approve(requestId).then('Domain created');
+            return handler.approve(requestId).then(a => 'Domain created');
         }
 
         this.reject = function (requestId) {
-            return this.handler.reject(requestId).then('Request rejected');
+            return handler.reject(requestId).then(a => 'Request rejected');
         }
 
     }

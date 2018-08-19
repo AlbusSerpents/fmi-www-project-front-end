@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import '../../styles/admin-requests.css'
+
 import RequestsService from '../../logic/requests/RequestsService';
 
 import AdminRequestBuble from './AdminRequestBuble'
@@ -28,20 +30,16 @@ class AdminRequests extends Component {
 
     drawRequests() {
         const requests = this.state.requests;
-        return requests.map(request => <AdminRequestBuble sessionId={this.props.sessionId} request={request} refreshCallback={this.getRequests} />);
+        return requests.map(request => <AdminRequestBuble key={request.id} sessionId={this.props.sessionId} request={request} refreshCallback={this.getRequests} />);
     }
 
     render() {
         return (
-            <div>
-                <div >
-                    Domain Rqeuests
-                    <div id='pending-requests-list'>
-                        <li>
-                            {this.drawRequests()}
-                        </li>
-                    </div>
-                </div>
+            <div id='pending-requests'>
+                <div id='requests-title'>Domain Rqeuests</div>
+                <li id='pending-requests-list'>
+                    {this.drawRequests()}
+                </li>
             </div>
         );
     }

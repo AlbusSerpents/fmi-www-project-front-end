@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 
-import '../../styles/domains.css';
+import '../../styles/admin-home.css';
 
 import AdminNavBar from './AdminNavBar'
 import AdminRequests from './AdminRequests'
@@ -11,13 +11,13 @@ class AdminHome extends Component {
 
     render() {
         return this.props.admin === undefined ? <Redirect to='/' /> : (
-            <div>
+            <div id='admin-home'>
                 <AdminNavBar admin={this.props.admin} />
-                <div className='content'>
+                <div id='admin-content'>
                     <div className='domains-search'>
                         <DomainSearch sessionId={this.props.admin.sessionId} />
                     </div>
-                    <div className='requests'>
+                    <div id='admin-requests'>
                         <AdminRequests sessionId={this.props.admin.sessionId} userId={this.props.admin.id} />
                     </div>
                 </div>

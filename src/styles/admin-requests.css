@@ -1,0 +1,65 @@
+#pending-requests {
+    position: relative;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #064106; 
+    width: 100%;
+    min-height: 40%;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+#requests-title {
+    position: relative;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 60%;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 1.6em;
+    text-decoration: underline;
+    background-color: #d8be61;
+    border-radius: 10px;
+    box-sizing: content-box; 
+}
+
+#pending-requests-list {
+    list-style: none;
+    position: relative;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 90%;
+    box-sizing: border-box; 
+}
+
+#admin-request-buble {
+    position: relative;
+    background-color: #d8be61;
+    padding: 1% 5%;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 80px;
+    box-sizing: content-box;
+}
+
+#admin-request-buble .info {
+    position: relative;
+    float: left;
+    width: 45%;
+    font-size: 1.1em;
+}
+
+#admin-request-buble .buttons {
+    position: relative;
+    right: 0;
+    float: right;
+    width: 45%;
+}
+
+#admin-request-buble .buttons input {
+    position: relative;
+    left: 50%;
+    width: 40%;
+}
