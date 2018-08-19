@@ -12,17 +12,17 @@ class AdminLogin extends Component {
         this.authenticated = this.authenticated.bind(this);
 
         this.state = {
-            user: null
+            admin: null
         };
     }
 
     authenticated(result) {
-        this.setState({ user: result });
+        this.setState({ admin: result });
     }
 
     render() {
-        return this.state.user !== null ?
-            <Redirect to={{ pathname: '/admin/home', state: { user: this.state.user } }} /> :
+        return this.state.admin !== null ?
+            <Redirect to={{ pathname: '/admin/home', state: { admin: this.state.admin } }} /> :
             (
                 <div>
                     <div id='admin-home'>
