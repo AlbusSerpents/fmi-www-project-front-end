@@ -18,7 +18,7 @@ class LoginForm extends Component {
     
     login() {
         this.service
-            .login(this.state.username, this.state.password, this.props.role)
+            .login(this.state.username, this.state.password, this.props.roleToken)
             .then(result => this.props.onSuccess(result))
             .catch(error => alert(error.message));
     }

@@ -28,7 +28,7 @@ class Home extends Component {
                 <div>
                     <div id='home-page'>
                         <div className='form-container'>
-                            <LoginForm onSuccess={this.authenticated} role='c'/>
+                            <LoginForm onSuccess={this.authenticated} roleToken='c'/>
                         </div>
                         <div id='horizonal-split'></div>
                         <div className='form-container'>
