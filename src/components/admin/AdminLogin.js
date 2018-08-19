@@ -26,7 +26,7 @@ class AdminLogin extends Component {
             (
                 <div>
                     <div id='admin-home'>
-                        <div className='form-container'>
+                        <div className='admin-form-container'>
                             <LoginForm onSuccess={this.authenticated} role='a' />
                         </div>
                     </div>

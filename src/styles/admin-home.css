@@ -1,8 +1,8 @@
 @import url("../index.css");
 
 #admin-home {
-    top: 20%;
-    height: 60%;
+    top: 30%;
+    height: 40%;
     width: 30%;
     left: 35%;
     background-color: #064106; 
@@ -39,7 +39,7 @@ button {
     border-radius: 5%;
 }
 
-.form-container {
+.admin-form-container {
     margin: auto;
     height: 100%;
     float: left;
