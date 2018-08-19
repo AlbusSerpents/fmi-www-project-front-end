@@ -28,6 +28,30 @@ class RequestsService {
                 description: description
             }
         }
+
+        this.getPending = function () {
+            return handler
+                .getAll()
+                .then(requests => requests.map(present));
+        }
+
+        const present = function (request) {
+            const id = request.id;
+            const client = request.clientName;
+            const facultyNumber = request.facultyNumber;
+            const domain = request.details.domainName;
+            const description = request.details.description;
+            return { id, client, facultyNumber, domain, description };
+        }
+
+        this.approve = function (requestId) {
+            return this.handler.approve(requestId).then('Domain created');
+        }
+
+        this.reject = function (requestId) {
+            return this.handler.reject(requestId).then('Request rejected');
+        }
+
     }
 }
 
