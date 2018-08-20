@@ -6,14 +6,7 @@ class DomainsHandler extends NetworkingHandler {
         super();
         const authHeader = { 'X-Auth-Token': sessionId };
 
-        this.getMyDomains = function (id) {
-            return this.executeRequest(
-                `domain/my-domains/${id}`,
-                this.methods.get(),
-                null,
-                authHeader
-            );
-        }
+        this.getMyDomains = (id) => this.executeRequest(`domain/my-domains/${id}`, this.methods.get(), null, authHeader);
 
         this.searchDomain = function (address, domain) {
             let url = `domain?`;

@@ -3,7 +3,6 @@ import ProfileHandler from '../../networking/ProfileHandler'
 class ProfileService {
 
     constructor(userId, sessionId) {
-        const clientRole = 'c';
         const handler = new ProfileHandler(userId, sessionId);
 
         this.getClient = function () {
@@ -16,7 +15,7 @@ class ProfileService {
                 sessionId: sessionId
             };
 
-            return handler.getProfile(clientRole)
+            return handler.getProfile()
                 .then(response => response === null ? noResponse :
                     {
                         name: response.name,
@@ -33,7 +32,6 @@ class ProfileService {
 
             const request = {
                 email: email,
-                role: clientRole,
                 passwordRequest: passwords
             };
 

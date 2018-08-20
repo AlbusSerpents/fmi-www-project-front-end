@@ -6,11 +6,9 @@ class ProfileHandler extends NetworkingHandler {
         super();
         const authHeader = { 'X-Auth-Token': sessionId };
 
-        this.getProfile = (role) => this.executeRequest(`user/${userId}?userRole=${role}`, this.methods.get(), null, authHeader);
+        this.getProfile = () => this.executeRequest(`user/${userId}`, this.methods.get(), null, authHeader);
 
-        this.updateProfile = function (request) {
-            return this.executeRequest(`user/${userId}`, this.methods.put(), request, authHeader);
-        }
+        this.updateProfile = (request) => this.executeRequest(`user/${userId}`, this.methods.put(), request, authHeader);
     }
 }
 
