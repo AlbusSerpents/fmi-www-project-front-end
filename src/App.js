@@ -9,6 +9,7 @@ import Profile from './components/profile/Profile'
 
 import AdminLogin from './components/admin/AdminLogin'
 import AdminHome from './components/admin/AdminHome'
+import AdminManager from './components/admin/AdminManager'
 
 class App extends Component {
 
@@ -31,8 +32,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path='/admin' exact render={() => <AdminLogin />} />
-          <Route path='/admin/home' exact render={(props) => this.getAdmin(props) === null ? <Redirect to='/admin' /> : <AdminHome admin={this.getAdmin(props)} />} />
+          <Route path='/admin' exact render={(props) => this.getAdmin(props) === null ? <AdminLogin /> : <AdminHome admin={this.getAdmin(props)} />} />
+          <Route path='/admin/manage' exact render={(props) => this.getAdmin(props) === null ? <Redirect to='/admin'/> : <AdminManager admin={this.getAdmin(props)} />} />
           <Route path='/login' exact render={() => <Home />} />
           <Route path='/' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />
           <Route path='/domains' exact render={(props) => this.getUser(props) === null ? <Redirect to='/login' /> : <Domains user={this.getUser(props)} />} />

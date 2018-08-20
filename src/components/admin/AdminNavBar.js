@@ -54,7 +54,7 @@ class NavBar extends Component {
             <div className='nav-bar'>
                 {this.executeRedirect()}
                 <ul className='nav-bar-list'>
-                    {this.navBarElement(() => this.changePage('/admin/home'), 'Home')}
+                    {this.navBarElement(() => this.changePage('/admin'), 'Home')}
                     {this.navBarElement(() => this.changePage('/admin/manage'), 'Manage')}
                     {this.navBarElement(() => this.logout(), 'Login')}
                 </ul>

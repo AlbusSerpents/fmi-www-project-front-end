@@ -1,0 +1,55 @@
+
+#admin-manage #users {
+    position: relative;
+    margin: auto;
+    width: 60%;
+    margin-bottom: 20px;
+    margin-top: 10%;
+    border-radius: 10px;
+    background-color: #064106; 
+    padding: 20px 20px;
+}
+
+#admin-manage #users li {
+    list-style: none;
+}
+
+#admin-manage-buble {
+    position: relative;
+    background-color: #d8be61;
+    width: 90%;
+    margin: auto;
+    padding: 1% 2%;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 80px;
+    box-sizing: content-box;
+}
+
+#admin-manage-buble .info {
+    position: relative;
+    float: left;
+    font-size: 1.1em;
+}
+
+#admin-manage-buble .button {
+    position: relative;
+    float: right;
+    padding: 0;
+    height: 90%;
+    width: 30%;
+}
+
+#admin-manage-buble .button input {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

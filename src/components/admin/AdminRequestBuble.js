@@ -33,7 +33,6 @@ class AdminRequestBuble extends Component {
     approve() {
         this.service
             .approve(this.props.request.id)
-            .then(a => {console.log(a); return a;})
             .then(message => alert(message))
             .then(result => this.props.refreshCallback())
             .catch(message => alert(message));
@@ -42,7 +41,6 @@ class AdminRequestBuble extends Component {
     reject() {
         this.service
             .reject(this.props.request.id)
-            .then(a => {console.log(a); return a;})
             .then(message => alert(message))
             .then(result => this.props.refreshCallback())
             .catch(message => alert(message));

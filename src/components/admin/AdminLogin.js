@@ -22,7 +22,7 @@ class AdminLogin extends Component {
 
     render() {
         return this.state.admin !== null ?
-            <Redirect to={{ pathname: '/admin/home', state: { admin: this.state.admin } }} /> :
+            <Redirect to={{ pathname: '/admin', state: { admin: this.state.admin } }} /> :
             (
                 <div>
                     <div id='admin-login'>
