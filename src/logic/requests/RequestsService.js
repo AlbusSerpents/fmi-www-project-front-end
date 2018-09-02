@@ -11,7 +11,7 @@ class RequestsService {
                 .then(name => validate(name))
                 .then(name => createRequest(name, description))
                 .then(request => handler.sumitRequest(request))
-                .then(result => result !== null ? 'Request submitted successfully' : 'Request failed to submit');
+                .then(any => 'Request submitted successfully');
         }
 
         const validate = function (name) {

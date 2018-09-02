@@ -56,7 +56,7 @@ class NavBar extends Component {
                 <ul className='nav-bar-list'>
                     {this.navBarElement(() => this.changePage('/admin'), 'Home')}
                     {this.navBarElement(() => this.changePage('/admin/manage'), 'Manage')}
-                    {this.navBarElement(() => this.logout(), 'Login')}
+                    {this.navBarElement(() => this.logout(), 'Logout')}
                 </ul>
             </div>
         );
